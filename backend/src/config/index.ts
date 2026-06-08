@@ -5,4 +5,5 @@ export const config = {
   TWILIO_ACCOUNT_SID: process.env.TWILIO_ACCOUNT_SID as string,
   TWILIO_AUTH_TOKEN: process.env.TWILIO_AUTH_TOKEN as string,
   TWILIO_WHATSAPP_NUMBER: process.env.TWILIO_WHATSAPP_NUMBER ?? "whatsapp:+14155238886",
+  GEMINI_API_KEY: process.env.GEMINI_API_KEY as string,
 };
