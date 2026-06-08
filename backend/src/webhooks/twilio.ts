@@ -49,7 +49,7 @@ twilioWebhookRouter.post(
     const from: string = req.body.From ?? ""; 
     const body: string = (req.body.Body ?? "").trim();
     const phone = from.replace("whatsapp:", "");
-
+    console.log("[webhook] received message from", phone, ":", req.body);
     res.status(200).send();
 
     try {
