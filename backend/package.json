@@ -4,8 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+      "build": "tsc -p tsconfig.json",
+    "start": "node dist/index.js",
+    "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
+    "worker": "ts-node-dev --respawn --transpile-only src/workers/index.ts",
+    "typeorm": "typeorm-ts-node-commonjs",
+    "migration:generate": "npm run typeorm -- migration:generate -d src/connections/datasource.ts",
+    "migration:run": "npm run typeorm -- migration:run -d src/connections/datasource.ts",
+    "migration:revert": "npm run typeorm -- migration:revert -d src/connections/datasource.ts"},
   "keywords": [],
   "author": "",
   "license": "ISC",

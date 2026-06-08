@@ -43,18 +43,6 @@ export class AuthService {
     return { dashboard_url: url };
   }
 
-  async verifyToken(token: string) {
-    try {
-      const decoded = jwt.verify(token, config.JWT_SECRET) as {
-        trader_id: string;
-        name: string;
-      };
-      return { valid: true, trader_id: decoded.trader_id, trader_name: decoded.name };
-    } catch {
-      return { valid: false, error: "Link expired. Ask the bot for a new dashboard link." };
-    }
-  }
-
   async getProfile(traderId: string) {
     const trader = await repo().findOne({ where: { id: traderId } });
     if (!trader) throw new NotFoundException("Trader not found");
