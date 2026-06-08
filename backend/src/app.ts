@@ -28,6 +28,9 @@ const globalLimiter = rateLimit({
 });
 app.use(globalLimiter);
 
+app.get('/', (_req, res) => {
+    res.json({ status: 'ok', message: "MarketPadi API" });
+});
 app.get('/health', (_req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });
 });
@@ -37,7 +40,7 @@ v1.use('/auth', authRouter);
 v1.use('/traders', tradersRouter);
 app.use('/api/v1', v1);
 
-// Twilio sends form-encoded bodies, needs its own raw parsing
+
 app.use('/webhook', express.urlencoded({ extended: false }), twilioWebhookRouter);
 
 app.use(errorHandler);
