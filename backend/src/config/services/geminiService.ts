@@ -2,7 +2,7 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 import { config } from "../index";
 
 const genAI = new GoogleGenerativeAI(config.GEMINI_API_KEY);
-const flash = () => genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
+const flash = () => genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
 
 export type ParsedTransaction = {
   itemName: string;
@@ -60,8 +60,6 @@ Rules:
   }
 }
 
-// ── Transaction parsing from audio (voice notes) ───────────────────────────
-// Gemini 2.0 Flash can process audio inline — no separate STT step needed.
 
 export async function parseTransactionFromAudio(
   audioBase64: string,

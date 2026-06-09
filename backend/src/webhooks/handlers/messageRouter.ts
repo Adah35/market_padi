@@ -15,10 +15,9 @@ interface TraderContext {
   trader_id: string;
   language: string;
   fullName: string;
-  phone: string; // raw phone e.g. +2348012345678
+  phone: string;
 }
 
-// Entry point — called for every message from a registered trader
 export async function routeMessage(
   from: string, // whatsapp:+234...
   body: string,
@@ -26,7 +25,6 @@ export async function routeMessage(
   mediaType: string | undefined,
   trader: TraderContext
 ): Promise<void> {
-  // Voice note — parse directly with Gemini (no separate STT step needed)
   if (mediaUrl) {
     await handleVoiceNote(from, mediaUrl, mediaType ?? "audio/ogg", trader);
     return;
@@ -34,7 +32,7 @@ export async function routeMessage(
 
   const lower = body.toLowerCase();
 
-  // Fast-path keyword matching before calling Gemini
+
   if (lower.includes("dashboard") || lower.includes("stats") || lower.includes("link")) {
     await handleDashboardLink(from, trader.trader_id);
     return;
@@ -108,7 +106,6 @@ async function handleVoiceNote(
   await sendWhatsApp(from, "🎙️ Got your voice note, processing...");
 
   try {
-    // Download audio — Twilio media URLs need Basic Auth
     const response = await fetch(mediaUrl, {
       headers: {
         Authorization:
