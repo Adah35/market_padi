@@ -221,7 +221,7 @@ Instructions:
 
 export async function getMarketInsights(businessName: string, language: string): Promise<string> {
   const model = genAI.getGenerativeModel({
-    model: "gemini-2.0-flash",
+    model: "gemini-2.5-flash",
     tools: [{ googleSearch: {} } as any],
   });
 

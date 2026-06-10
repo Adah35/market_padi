@@ -2,8 +2,7 @@ import { sessionStore } from "../../services/sessionStore";
 import { authService } from "../../services/authService";
 import { sendWhatsApp } from "../../services/twilioService";
 import { isConfirmation } from "../../services/geminiService";
-
-type Language = "english" | "pidgin" | "hausa" | "yoruba" | "igbo";
+import { t, type Language } from "../../i18n/messages";
 
 const LANGUAGE_MAP: Record<string, Language> = {
   "1": "english",
@@ -11,14 +10,6 @@ const LANGUAGE_MAP: Record<string, Language> = {
   "3": "hausa",
   "4": "yoruba",
   "5": "igbo",
-};
-
-const LANG_GREETINGS: Record<Language, string> = {
-  english: "You're all set",
-  pidgin: "You don set",
-  hausa: "An kafa ku",
-  yoruba: "O ti ṣetan",
-  igbo: "Ị dị njikere",
 };
 
 const LANGUAGE_PROMPT =
@@ -65,10 +56,7 @@ export async function handleRegistration(
     });
 
     sessionStore.clear(phone);
-    await sendWhatsApp(
-      from,
-      `${LANG_GREETINGS[language]}, *${session.name}*! 🎉 Your account is ready.\n\nTry recording a sale — e.g. *"I sold 5 bags of rice at ₦3,500 each."*\n\nOr reply *dashboard* to see your stats.`
-    );
+    await sendWhatsApp(from, t(language).accountReady(session.name!));
     return true;
   }
 

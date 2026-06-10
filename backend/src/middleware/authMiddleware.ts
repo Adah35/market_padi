@@ -31,9 +31,11 @@ const authMiddleware = (req: Request, _res: Response, next: NextFunction) => {
     }
     req.trader = decoded;
     next();
-  } catch {
+  } catch (error) {
+    console.log(error);
     next(new UnauthorizedException("Invalid or expired token"));
   }
 };
+
 
 export default authMiddleware;
