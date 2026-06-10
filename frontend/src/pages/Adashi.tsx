@@ -94,7 +94,7 @@ export function AdashiPage() {
                   { label: "Members", value: group.memberCount, icon: Users },
                   { label: "Current Round", value: `#${group.currentRound}`, icon: TrendingUp },
                   { label: "Total Contributed", value: fmt(group.totalContributed), icon: Calendar },
-                ].map(({ label, value, icon: Icon }) => (
+                ].map(({ label, value }) => (
                   <div key={label} className="bg-gray-50 rounded-xl p-3">
                     <p className="text-xs text-gray-400 mb-1">{label}</p>
                     <p className="text-sm font-bold text-gray-800">{value}</p>

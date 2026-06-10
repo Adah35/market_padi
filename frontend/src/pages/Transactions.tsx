@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { format } from "date-fns";
-import { Search, Filter, TrendingUp, ShoppingBag, ChevronLeft, ChevronRight, X } from "lucide-react";
+import { Search, TrendingUp, ShoppingBag, ChevronLeft, ChevronRight, X } from "lucide-react";
 import { useTransactions } from "@/hooks/useTrader";
 import { EmptyState } from "@/components/shared/EmptyState";
 

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip,
-  ResponsiveContainer, LineChart, Line, Legend
+  ResponsiveContainer, LineChart, Line
 } from "recharts";
 import { Download, BarChart3, TrendingUp, TrendingDown } from "lucide-react";
 import { useReports } from "@/hooks/useTrader";
@@ -116,7 +116,7 @@ export function ReportsPage() {
                 <XAxis dataKey="month" tick={{ fontSize: 11, fill: "#9ca3af" }} axisLine={false} tickLine={false} />
                 <YAxis tick={{ fontSize: 10, fill: "#9ca3af" }} axisLine={false} tickLine={false} tickFormatter={v => "₦" + (v >= 1000 ? Math.round(v/1000) + "k" : v)} />
                 <Tooltip
-                  formatter={(v: number, name: string) => [fmt(v), name === "revenue" ? "Revenue" : "Expenses"]}
+                  formatter={(v: any, name: string) => [fmt(Number(v ?? 0)), name === "revenue" ? "Revenue" : "Expenses"]}
                   contentStyle={{ borderRadius: 12, border: "1px solid #e5e7eb", fontSize: 12 }}
                 />
                 <Bar dataKey="revenue" fill="#059669" radius={[4, 4, 0, 0]} />
@@ -143,7 +143,7 @@ export function ReportsPage() {
                 <XAxis dataKey="month" tick={{ fontSize: 11, fill: "#9ca3af" }} axisLine={false} tickLine={false} />
                 <YAxis tick={{ fontSize: 10, fill: "#9ca3af" }} axisLine={false} tickLine={false} tickFormatter={v => "₦" + (v >= 1000 ? Math.round(v/1000) + "k" : v)} />
                 <Tooltip
-                  formatter={(v: number) => [fmt(v), "Profit"]}
+                  formatter={(v: any) => [fmt(Number(v ?? 0)), "Profit"]}
                   contentStyle={{ borderRadius: 12, border: "1px solid #e5e7eb", fontSize: 12 }}
                 />
                 <Line

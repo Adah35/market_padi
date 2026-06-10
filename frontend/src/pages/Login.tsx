@@ -22,7 +22,6 @@ const otpSchema = z.object({
 });
 
 type PhoneForm = z.infer<typeof phoneSchema>;
-type OtpForm = z.infer<typeof otpSchema>;
 
 function normalizePhone(phone: string): string {
   const digits = phone.replace(/\D/g, "");
@@ -229,7 +228,7 @@ export function LoginPage() {
                 </button>
 
                 <button
-                  onClick={() => phoneForm.handleSubmit(onSendOtp)({ phoneNumber: phone })}
+                  onClick={() => onSendOtp({ phoneNumber: phone })}
                   className="w-full text-center text-sm text-gray-400 hover:text-gray-600 mt-4 transition-colors"
                 >
                   Didn't get the code? Resend

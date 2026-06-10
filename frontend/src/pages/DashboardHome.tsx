@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import {
   AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip,
-  ResponsiveContainer, BarChart, Bar, PieChart, Pie, Cell, Legend
+  ResponsiveContainer
 } from "recharts";
 import {
   TrendingUp, Package, Users, ArrowLeftRight,
@@ -120,7 +120,7 @@ export function DashboardHome() {
                 <XAxis dataKey="date" tick={{ fontSize: 11, fill: "#9ca3af" }} axisLine={false} tickLine={false} />
                 <YAxis tick={{ fontSize: 10, fill: "#9ca3af" }} axisLine={false} tickLine={false} tickFormatter={v => "₦" + (v >= 1000 ? Math.round(v/1000) + "k" : v)} />
                 <Tooltip
-                  formatter={(v: number, name: string) => [fmt(v), name === "revenue" ? "Revenue" : "Expenses"]}
+                  formatter={(v: any, name: string) => [fmt(Number(v ?? 0)), name === "revenue" ? "Revenue" : "Expenses"]}
                   contentStyle={{ borderRadius: 12, border: "1px solid #e5e7eb", fontSize: 12 }}
                 />
                 <Area type="monotone" dataKey="revenue" stroke="#059669" strokeWidth={2.5} fill="url(#colorRevenue)" />

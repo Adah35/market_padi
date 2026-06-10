@@ -5,7 +5,6 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "sonner";
 
 import "./index.css";
-import "@fontsource-variable/inter";
 import App from "./App.tsx";
 import { AuthProvider } from "@/contexts/AuthContext.tsx";
 

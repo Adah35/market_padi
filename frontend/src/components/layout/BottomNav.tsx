@@ -1,7 +1,6 @@
 import { NavLink } from "react-router-dom";
 import {
-  LayoutDashboard, ArrowLeftRight, Package, ShoppingBag,
-  Users, TrendingUp, BarChart3, MessageSquare
+  LayoutDashboard, ArrowLeftRight, Package, ShoppingBag, MessageSquare
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
