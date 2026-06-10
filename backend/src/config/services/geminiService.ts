@@ -187,6 +187,58 @@ Is this message a confirmation or agreement? Message: "${trimmed}"`;
   }
 }
 
+// ── Dashboard AI chat ──────────────────────────────────────────────────────
+
+export async function answerDashboardQuery(
+  message: string,
+  context: string,
+  language: string
+): Promise<string> {
+  const prompt = `You are a helpful business advisor AI for Nigerian market traders, built into the Àjọ dashboard.
+Answer the trader's question using only the business data provided.
+Be conversational, helpful, and concise. Reply in ${language}.
+
+Business data:
+${context}
+
+Trader's question: "${message}"
+
+Instructions:
+- Be specific with numbers and dates
+- Format currency as ₦X,XXX
+- If the data doesn't have the answer, say so honestly
+- Keep responses under 150 words`;
+
+  try {
+    const result = await flash().generateContent(prompt);
+    return result.response.text().trim();
+  } catch {
+    return "I'm having trouble answering that right now. Please try again.";
+  }
+}
+
+// ── Market intelligence insights ───────────────────────────────────────────
+
+export async function getMarketInsights(businessName: string, language: string): Promise<string> {
+  const model = genAI.getGenerativeModel({
+    model: "gemini-2.0-flash",
+    tools: [{ googleSearch: {} } as any],
+  });
+
+  const prompt = `You are a market intelligence assistant for Nigerian market traders.
+Provide 3-4 brief, actionable business insights for a trader in Nigeria.
+Focus on: current market trends, popular products, seasonal tips, pricing advice.
+Business: ${businessName || "general market trader"}
+Reply in ${language} with bullet points. Keep it practical and specific to Nigeria.`;
+
+  try {
+    const result = await model.generateContent(prompt);
+    return result.response.text().trim();
+  } catch {
+    return "Market intelligence data is temporarily unavailable.";
+  }
+}
+
 // ── Voice calculator ───────────────────────────────────────────────────────
 
 export async function calculate(expression: string, language: string): Promise<string> {

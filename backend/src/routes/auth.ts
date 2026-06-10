@@ -1,6 +1,12 @@
 import { Router, Request, Response, NextFunction } from "express";
+import jwt from "jsonwebtoken";
 import { authService } from "../config/services/authService";
+import { sendOtp, verifyOtp } from "../config/services/otpService";
+import { config } from "../config/index";
+import { AppDataSource } from "../config/datasource";
+import { Trader } from "../entities/trader";
 import authMiddleware from "../middleware/authMiddleware";
+import { BadRequestException, NotFoundException } from "../errors/errors";
 
 export const authRouter = Router();
 
@@ -17,7 +23,6 @@ authRouter.get("/check-trader/:phone", async (req: Request, res: Response, next:
 });
 
 // POST /api/v1/auth/register
-// Body: { phoneNumber, fullName, language, businessName? }
 authRouter.post("/register", async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { phoneNumber, fullName, language, businessName } = req.body;
@@ -28,12 +33,60 @@ authRouter.post("/register", async (req: Request, res: Response, next: NextFunct
   }
 });
 
-// ── DASHBOARD-FACING (JWT required — trader_id always comes from the token) ─
+// ── DASHBOARD LOGIN (OTP-based, no prior auth) ─────────────────────────────
+
+// POST /api/v1/auth/send-otp
+// Body: { phoneNumber: "+2348012345678" }
+authRouter.post("/send-otp", async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const { phoneNumber } = req.body;
+    if (!phoneNumber) throw new BadRequestException("phoneNumber is required");
+
+    const repo = AppDataSource.getRepository(Trader);
+    const trader = await repo.findOne({ where: { phoneNumber } });
+    if (!trader) throw new NotFoundException("No account found for this number. Please register via WhatsApp first.");
+
+    await sendOtp(phoneNumber);
+    res.json({ message: "OTP sent to your WhatsApp number" });
+  } catch (err) {
+    next(err);
+  }
+});
+
+// POST /api/v1/auth/verify-otp
+// Body: { phoneNumber: "+2348012345678", otp: "123456" }
+authRouter.post("/verify-otp", async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const { phoneNumber, otp } = req.body;
+    if (!phoneNumber || !otp) throw new BadRequestException("phoneNumber and otp are required");
+
+    const valid = verifyOtp(phoneNumber, otp);
+    if (!valid) throw new BadRequestException("Invalid or expired OTP");
+
+    const repo = AppDataSource.getRepository(Trader);
+    const trader = await repo.findOne({ where: { phoneNumber } });
+    if (!trader) throw new NotFoundException("Trader not found");
+
+    const token = jwt.sign(
+      { trader_id: trader.id, name: trader.fullName },
+      config.JWT_SECRET,
+      { expiresIn: "24h" }
+    );
+
+    res.json({
+      token,
+      trader_id: trader.id,
+      trader_name: trader.fullName,
+      business_name: trader.businessName,
+    });
+  } catch (err) {
+    next(err);
+  }
+});
+
+// ── DASHBOARD-FACING (JWT required) ────────────────────────────────────────
 
 // POST /api/v1/auth/generate-dashboard-link
-// Authorization: Bearer <jwt>
-// Trader_id is read from the verified JWT, never from the request body,
-// so a caller cannot generate a link for a different trader's account.
 authRouter.post(
   "/generate-dashboard-link",
   authMiddleware,
@@ -48,10 +101,6 @@ authRouter.post(
 );
 
 // GET /api/v1/auth/verify-token
-// Authorization: Bearer <dashboard-jwt>
-// The dashboard sends the token from the URL as the Bearer token.
-// Auth middleware validates the JWT and populates req.trader.
-// This route just surfaces that decoded payload to the frontend.
 authRouter.get(
   "/verify-token",
   authMiddleware,
