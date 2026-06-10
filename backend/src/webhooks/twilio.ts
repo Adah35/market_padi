@@ -1,7 +1,7 @@
 import { Router, Request, Response } from "express";
 import twilio from "twilio";
 import { config } from "../config";
-import { authService } from "../config/services/authService";
+import { authService } from "../services/authService";
 import { handleRegistration, startRegistration } from "./handlers/registration";
 import { routeMessage } from "./handlers/messageRouter";
 

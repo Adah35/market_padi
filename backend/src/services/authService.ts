@@ -1,8 +1,8 @@
 import jwt from "jsonwebtoken";
-import { AppDataSource } from "../datasource";
-import { Trader } from "../../entities/trader";
-import { config } from "../index";
-import { NotFoundException } from "../../errors/errors";
+import { AppDataSource } from "../config/datasource";
+import { Trader } from "../entities/trader";
+import { config } from "../config/index";
+import { NotFoundException } from "../errors/errors";
 
 const repo = () => AppDataSource.getRepository(Trader);
 

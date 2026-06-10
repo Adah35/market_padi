@@ -1,7 +1,7 @@
 import { Router, Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
-import { authService } from "../config/services/authService";
-import { sendOtp, verifyOtp } from "../config/services/otpService";
+import { authService } from "../services/authService";
+import { sendOtp, verifyOtp } from "../services/otpService";
 import { config } from "../config/index";
 import { AppDataSource } from "../config/datasource";
 import { Trader } from "../entities/trader";

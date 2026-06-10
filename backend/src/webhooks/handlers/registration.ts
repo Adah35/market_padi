@@ -1,7 +1,7 @@
-import { sessionStore } from "../../config/services/sessionStore";
-import { authService } from "../../config/services/authService";
-import { sendWhatsApp } from "../../config/services/twilioService";
-import { isConfirmation } from "../../config/services/geminiService";
+import { sessionStore } from "../../services/sessionStore";
+import { authService } from "../../services/authService";
+import { sendWhatsApp } from "../../services/twilioService";
+import { isConfirmation } from "../../services/geminiService";
 
 type Language = "english" | "pidgin" | "hausa" | "yoruba" | "igbo";
 

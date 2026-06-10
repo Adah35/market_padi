@@ -1,14 +1,14 @@
-import { sendWhatsApp } from "../../config/services/twilioService";
-import { authService } from "../../config/services/authService";
-import { recordTransaction, getTodaySummary } from "../../config/services/transactionService";
-import { getStock, addStock } from "../../config/services/inventoryService";
+import { sendWhatsApp } from "../../services/twilioService";
+import { authService } from "../../services/authService";
+import { recordTransaction, getTodaySummary } from "../../services/transactionService";
+import { getStock, addStock } from "../../services/inventoryService";
 import {
   parseTransactionFromText,
   parseTransactionFromAudio,
   detectIntent,
   answerMarketQuery,
   calculate,
-} from "../../config/services/geminiService";
+} from "../../services/geminiService";
 import { config } from "../../config";
 
 interface TraderContext {

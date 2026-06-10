@@ -1,6 +1,6 @@
-import { AppDataSource } from "../datasource";
-import { Inventory } from "../../entities/inventory";
-import { Trader } from "../../entities/trader";
+import { AppDataSource } from "../config/datasource";
+import { Inventory } from "../entities/inventory";
+import { Trader } from "../entities/trader";
 
 const repo = () => AppDataSource.getRepository(Inventory);
 

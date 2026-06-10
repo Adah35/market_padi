@@ -25,10 +25,10 @@ export function Sidebar() {
       <div className="mb-8 px-2">
         <div className="flex items-center gap-2">
           <div className="w-9 h-9 rounded-xl bg-emerald-600 flex items-center justify-center">
-            <span className="text-white font-bold text-lg">À</span>
+            <img src="/yellow.png" alt="MarketPadi Logo" className="w-full" />
           </div>
           <div>
-            <p className="font-bold text-gray-900 text-lg leading-none">Àjọ</p>
+            <p className="font-bold text-gray-900 text-lg leading-none">MarketPadi</p>
             <p className="text-xs text-gray-400">Business Dashboard</p>
           </div>
         </div>

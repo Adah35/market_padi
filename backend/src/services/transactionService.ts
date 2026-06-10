@@ -1,7 +1,7 @@
-import { AppDataSource } from "../datasource";
-import { Transaction } from "../../entities/transactions";
-import { Inventory } from "../../entities/inventory";
-import { Trader } from "../../entities/trader";
+import { AppDataSource } from "../config/datasource";
+import { Transaction } from "../entities/transactions";
+import { Inventory } from "../entities/inventory";
+import { Trader } from "../entities/trader";
 import { sendWhatsApp } from "./twilioService";
 
 const txRepo = () => AppDataSource.getRepository(Transaction);

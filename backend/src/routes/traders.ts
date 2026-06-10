@@ -1,6 +1,6 @@
 import { Router, Request, Response, NextFunction } from "express";
-import { authService } from "../config/services/authService";
-import { getStock } from "../config/services/inventoryService";
+import { authService } from "../services/authService";
+import { getStock } from "../services/inventoryService";
 import { AppDataSource } from "../config/datasource";
 import { Transaction } from "../entities/transactions";
 import { CustomerOrder } from "../entities/customer";
@@ -8,7 +8,7 @@ import { AdashiGroup } from "../entities/adashe";
 import { AdashiContribution } from "../entities/adasheContribution";
 import { AdashiMember } from "../entities/adasheMember";
 import { Inventory } from "../entities/inventory";
-import { answerDashboardQuery, getMarketInsights } from "../config/services/geminiService";
+import { answerDashboardQuery, getMarketInsights } from "../services/geminiService";
 import authMiddleware from "../middleware/authMiddleware";
 import { BadRequestException } from "../errors/errors";
 

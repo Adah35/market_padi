@@ -89,10 +89,11 @@ export function LoginPage() {
           animate={{ opacity: 1, y: 0 }}
           className="flex flex-col items-center mb-10"
         >
-          <div className="w-16 h-16 rounded-2xl bg-emerald-600 flex items-center justify-center shadow-lg shadow-emerald-200 mb-4">
-            <span className="text-white font-bold text-3xl">À</span>
+          <div className="w-16 h-16 rounded-2xl bg-emrald-600 flex shadow-lg shadow-emerald-200 mb-4">
+            <img src="/yellow.png" alt="MarketPadi Logo" className="w-full" />
           </div>
-          <h1 className="text-3xl font-bold text-gray-900 mb-1">Àjọ</h1>
+          {/* <h1 className="text-3xl font-bold text-gray-900 mb-1">MarketPadi</h1> */}
+          <img src="/name.png" alt="MarketPadi Logo" className="w-22" />
           <p className="text-gray-500 text-sm text-center">Your Business. Your Community. Your Voice.</p>
         </motion.div>
 
